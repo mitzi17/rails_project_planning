@@ -20,6 +20,7 @@
 	  -name
 	  -location
 	  -category
+	  -date
 	
 	Review
 	  -title
@@ -67,23 +68,26 @@ class User
 # t.string :category
 # t.string :location
 # t.integer :price
+# t.datetime :date
 
 class Event 
 	# relationships
 		has_many :reviews
-		has_many :users
+		has_many :users ??
 		has_many :reviewers, through :reviews, source:users
 
 	# validations 
 		-name
 		-location
 		-category
+		-date
 
 	# user submittable attributes (if this is a join model)
 
 	# scope_methods (if any)
 		Event.type(:category) => music, cinema, exhibitions, festivals, corporate, sports, etc.
 	 	Event.order(price :asc, price :desc) => low to high, high to low
+		Event.upcoming (lambda { where("created_at >= ?", Time.zone.now ) })
 	
 # table migration for: reviews 
 # t.string :name
