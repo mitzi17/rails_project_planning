@@ -3,8 +3,12 @@
 ## What is the Many to many relationship and how is it used?
 	User has_many :events
 	  users/user_id/events
-	Event has_many :users
-	  events/event_id/users
+	User has_many :reviewed_events, through :reviews, source:events
+	  users/user_id/events/event_id/reviews
+	Event has_many :reviews
+	  events/event_id/reviews
+	Event has_many :reviewers, through :reviews, source:users
+	  events/event_id/reviews/review_id/user
 
 ## What is the User Submittable attribute on the join model?
 	Review model has the following user submittable attributes
