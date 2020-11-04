@@ -51,8 +51,8 @@
 class User
 
 	# relationships
-		has_many :reviews
-		has_many :events, through :reviews
+		has_many :events
+		has_many :reviewed_events, through :reviews, source:events
 
 	# validations 
 		-name
@@ -71,7 +71,8 @@ class User
 class Event 
 	# relationships
 		has_many :reviews
-		has_many :users, through :reviews
+		has_many :users
+		has_many :reviewers, through :reviews, source:users
 
 	# validations 
 		-name
