@@ -57,7 +57,8 @@ class User
 
 	# relationships
 		has_many :events
-		has_many :reviewed_events, through :reviews, source:events
+		has_many :reviews
+		has_many :reviewed_events, through :reviews, source: :event
 
 	# validations 
 		-name
@@ -77,8 +78,8 @@ class User
 class Event 
 	# relationships
 		has_many :reviews
-		has_many :users ??
-		has_many :reviewers, through :reviews, source:users
+		belongs_to :host, class_name: "User"
+		has_many :reviewers, through :reviews, source: :user
 
 	# validations 
 		-name
@@ -91,7 +92,7 @@ class Event
 	# scope_methods (if any)
 		Event.type(:category) => music, cinema, exhibitions, festivals, corporate, sports, etc.
 	 	Event.order(price :asc, price :desc) => low to high, high to low
-		Event.upcoming (lambda { where("created_at >= ?", Time.zone.now ) })
+		Event.upcoming (lambda { where("start_day >= ?", Time.zone.now ) })
 	
 # table migration for: reviews 
 # t.string :name
